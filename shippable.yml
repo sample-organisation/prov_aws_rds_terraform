@@ -55,6 +55,9 @@ jobs:
       - OUT: aws_rds_postgres_tf_info
         overwrite: true
       - OUT: aws_rds_postgres_tf_state
+    on_success:
+      script:
+        - echo "on_success"
     # on_success:
     #   script:
     #     - echo "TODO: output state info"
