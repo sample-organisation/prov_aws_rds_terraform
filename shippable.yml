@@ -62,6 +62,11 @@ jobs:
       script:
         - shipctl copy_file_to_resource_state terraform.tfstate aws_rds_postgres_tf_state
         - popd
+    flags:
+      - aws_rds
+      - postgres
+      - aws
+      - terraform
     # on_success:
     #   script:
     #     - echo "TODO: output state info"
