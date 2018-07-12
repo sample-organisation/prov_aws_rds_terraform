@@ -8,9 +8,9 @@ resource "aws_db_instance" "demo_postgres_db" {
   allocated_storage    = 10
   storage_type         = "gp2"
   engine               = "postgres"
-  engine_version       = "10.3"
+  engine_version       = "9.6"
   instance_class       = "db.t2.micro"
-  parameter_group_name = "default.postgres10.3"
+  parameter_group_name = "default.postgres9.6"
   # Use Shippable secure KV pair for storing this
   name                 = "demodb"
   username             = "foo"
