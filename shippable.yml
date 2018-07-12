@@ -36,7 +36,7 @@ jobs:
   - name: prov_aws_rds_postgres_tf
     type: runSh
     steps:
-      - IN: aws_vpc_tf_info
+      # - IN: aws_vpc_tf_info
       - IN: aws_rds_tf_repo
         switch: off
       - IN: aws_rds_tf_creds
