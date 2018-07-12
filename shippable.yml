@@ -45,31 +45,28 @@ jobs:
         switch: off
       - TASK:
           name: prov_aws_rds_postgres
+          runtime:
+            options:
+              env:
+                - aws_region: "us-east-1"
           script:
-            - echo "hi"
-          # runtime:
-          #   options:
-          #     env:
-          #       - aws_region: "us-east-1"
-          # script:
-          #   - *terraform-init
-          #   - terraform apply -auto-approve -var-file=terraform.tfvars
-    #   - OUT: aws_rds_postgres_tf_info
-    #     overwrite: true
-    #   - OUT: aws_rds_postgres_tf_state
-    # on_success:
-    #   script:
-    #     - echo "TODO: output state info"
-    #     # - shipctl put_resource_state_multi aws_rds_postgres_tf_info "versionName=$(terraform output configuration_endpoint)" "configuration_endpoint=$(terraform output configuration_endpoint)"
-    # always:
-    #   script:
-    #     - shipctl copy_file_to_resource_state terraform.tfstate aws_rds_postgres_tf_state
-    #     - popd
-    # flags:
-    #   - aws_rds
-    #   - postgres
-    #   - aws
-    #   - terraform
+            - *terraform-init
+            - terraform apply -auto-approve -var-file=terraform.tfvars
+      - OUT: aws_rds_postgres_tf_info
+        overwrite: true
+      - OUT: aws_rds_postgres_tf_state
+    on_success:
+      script:
+        - echo "TODO: output state info"
+    always:
+      script:
+        - shipctl copy_file_to_resource_state terraform.tfstate aws_rds_postgres_tf_state
+        - popd
+    flags:
+      - aws_rds
+      - postgres
+      - aws
+      - terraform
 
 # De-provision Amazon RDS Postgres with Terraform
   - name: deprov_aws_rds_postgres_tf
