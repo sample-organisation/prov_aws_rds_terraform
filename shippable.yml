@@ -52,9 +52,9 @@ jobs:
           script:
             - *terraform-init
             - terraform apply -auto-approve -var-file=terraform.tfvars
-      # - OUT: aws_rds_postgres_tf_info
-      #   overwrite: true
-      # - OUT: aws_rds_postgres_tf_state
+      - OUT: aws_rds_postgres_tf_info
+        overwrite: true
+      - OUT: aws_rds_postgres_tf_state
     # on_success:
     #   script:
     #     - echo "TODO: output state info"
