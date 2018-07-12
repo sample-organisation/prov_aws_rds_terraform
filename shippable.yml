@@ -45,34 +45,31 @@ jobs:
         switch: off
       - TASK:
           name: prov_aws_rds_postgres
-          runtime:
-            options:
-              env:
-                - aws_region: "us-east-1"
           script:
-            - pushd $(shipctl get_resource_state "aws_rds_tf_repo")
-            - export AWS_ACCESS_KEY_ID=$(shipctl get_integration_resource_field aws_rds_tf_creds "accessKey")
-            - export AWS_SECRET_ACCESS_KEY=$(shipctl get_integration_resource_field aws_rds_tf_creds "secretKey")
-            - shipctl copy_file_from_resource_state aws_rds_postgres_tf_state terraform.tfstate .
-            - shipctl replace terraform.tfvars
-            - terraform init
-            - terraform apply -auto-approve -var-file=terraform.tfvars
-      - OUT: aws_rds_postgres_tf_info
-        overwrite: true
-      - OUT: aws_rds_postgres_tf_state
-    on_success:
-      script:
-        - echo "TODO: output state info"
-        # - shipctl put_resource_state_multi aws_rds_postgres_tf_info "versionName=$(terraform output configuration_endpoint)" "configuration_endpoint=$(terraform output configuration_endpoint)"
-    always:
-      script:
-        - shipctl copy_file_to_resource_state terraform.tfstate aws_rds_postgres_tf_state
-        - popd
-    flags:
-      - aws_rds
-      - postgres
-      - aws
-      - terraform
+            - echo "hi"
+          # runtime:
+          #   options:
+          #     env:
+          #       - aws_region: "us-east-1"
+          # script:
+          #   - *terraform-init
+          #   - terraform apply -auto-approve -var-file=terraform.tfvars
+    #   - OUT: aws_rds_postgres_tf_info
+    #     overwrite: true
+    #   - OUT: aws_rds_postgres_tf_state
+    # on_success:
+    #   script:
+    #     - echo "TODO: output state info"
+    #     # - shipctl put_resource_state_multi aws_rds_postgres_tf_info "versionName=$(terraform output configuration_endpoint)" "configuration_endpoint=$(terraform output configuration_endpoint)"
+    # always:
+    #   script:
+    #     - shipctl copy_file_to_resource_state terraform.tfstate aws_rds_postgres_tf_state
+    #     - popd
+    # flags:
+    #   - aws_rds
+    #   - postgres
+    #   - aws
+    #   - terraform
 
 # De-provision Amazon RDS Postgres with Terraform
   - name: deprov_aws_rds_postgres_tf
