@@ -52,21 +52,21 @@ jobs:
           script:
             - *terraform-init
             - terraform apply -auto-approve -var-file=terraform.tfvars
-      - OUT: aws_rds_postgres_tf_info
-        overwrite: true
-      - OUT: aws_rds_postgres_tf_state
-    on_success:
-      script:
-        - echo "TODO: output state info"
-    always:
-      script:
-        - shipctl copy_file_to_resource_state terraform.tfstate aws_rds_postgres_tf_state
-        - popd
-    flags:
-      - aws_rds
-      - postgres
-      - aws
-      - terraform
+      # - OUT: aws_rds_postgres_tf_info
+      #   overwrite: true
+      # - OUT: aws_rds_postgres_tf_state
+    # on_success:
+    #   script:
+    #     - echo "TODO: output state info"
+    # always:
+    #   script:
+    #     - shipctl copy_file_to_resource_state terraform.tfstate aws_rds_postgres_tf_state
+    #     - popd
+    # flags:
+    #   - aws_rds
+    #   - postgres
+    #   - aws
+    #   - terraform
 
 # De-provision Amazon RDS Postgres with Terraform
   - name: deprov_aws_rds_postgres_tf
