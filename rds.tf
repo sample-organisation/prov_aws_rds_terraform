@@ -22,10 +22,9 @@ resource "aws_db_instance" "demo_postgres_db" {
   db_subnet_group_name = "${aws_db_subnet_group.demo_postgres_subnet_group.name}"
   vpc_security_group_ids = ["${var.vpc_private_sg_id}"]
   multi_az             = false
-  # TODO: Use Shippable secure KV pair for storing this
-  name                 = "demodb"
-  username             = "foo"
-  password             = "foobarbaz"
+  name                 = "${var.postgres_db_name}"
+  username             = "${var.postgres_db_username}"
+  password             = "${var.postgres_db_password}"
 }
 
 output "engine" {

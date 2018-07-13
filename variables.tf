@@ -21,3 +21,15 @@ variable "vpc_private_sn_id" {
 variable "vpc_private_sg_id" {
   description = "Security group ID for Memcached instances"
 }
+
+variable "postgres_db_name" {
+  description = "Postgres Database Name"
+}
+
+variable "postgres_db_username" {
+  description = "Postgres Database Username"
+}
+
+variable "postgres_db_password" {
+  description = "Postgres Database Password"
+}

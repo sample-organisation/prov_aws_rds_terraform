@@ -23,6 +23,11 @@ resources:
       params:
         SEED: "initial_version"
 
+# AWS RDS Postgres settings like db name, username, password
+  - name: aws_rds_postgres_tf_settings
+    type: integration
+    integration: "drship_aws_rds_postgres_settings"
+
 templates: &terraform-init
   - pushd $(shipctl get_resource_state "aws_rds_tf_repo")
   - export AWS_ACCESS_KEY_ID=$(shipctl get_integration_resource_field aws_rds_tf_creds "accessKey")
@@ -43,6 +48,8 @@ jobs:
         switch: off
       - IN: aws_rds_postgres_tf_state
         switch: off
+      - IN: aws_rds_postgres_tf_settings
+        switch: off
       - TASK:
           name: prov_aws_rds_postgres
           runtime:
@@ -57,7 +64,8 @@ jobs:
       - OUT: aws_rds_postgres_tf_state
     on_success:
       script:
-        - echo "on_success"
+        - shipctl put_resource_state_multi aws_rds_postgres_tf_info "engine=$(terraform output engine)" "engine_version=$(terraform output engine_version)" "endpoint=$(terraform output endpoint)"
+        - shipctl put_resource_state_multi aws_rds_postgres_tf_info "port=$(terraform output port)" "db_name=$(terraform output db_name)" "db_user=$(terraform output db_user)"
     always:
       script:
         - shipctl copy_file_to_resource_state terraform.tfstate aws_rds_postgres_tf_state
