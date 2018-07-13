@@ -11,7 +11,8 @@ resource "aws_db_instance" "demo_postgres_db" {
   engine_version       = "9.6"
   instance_class       = "db.t2.micro"
   parameter_group_name = "default.postgres9.6"
-  # Use Shippable secure KV pair for storing this
+  skip_final_snapshot  = true
+  # TODO: Use Shippable secure KV pair for storing this
   name                 = "demodb"
   username             = "foo"
   password             = "foobarbaz"
