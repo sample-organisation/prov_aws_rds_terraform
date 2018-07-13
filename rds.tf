@@ -6,7 +6,7 @@ provider "aws" {
 
 resource "aws_db_subnet_group" "demo_postgres_subnet_group" {
   name       = "demo-postgres-subnet-group"
-  subnet_ids = ["${var.vpc_public_sn_id}"]
+  subnet_ids = ["${var.vpc_public_sn_id}", "${var.vpc_private_sn_id}"]
 }
 
 resource "aws_db_instance" "demo_postgres_db" {

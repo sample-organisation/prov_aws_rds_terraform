@@ -11,7 +11,11 @@ variable "aws_region" {
 }
 
 variable "vpc_public_sn_id" {
-  description = "Subnet ID for spinning up Memcached instances"
+  description = "Subnet ID for spinning up DB instances"
+}
+
+variable "vpc_private_sn_id" {
+  description = "Subnet ID for spinning up DB instances"
 }
 
 variable "vpc_private_sg_id" {
